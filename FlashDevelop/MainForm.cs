@@ -3856,7 +3856,7 @@ namespace FlashDevelop
             String file = this.ProcessArgString(((ItemData)button.Tag).Tag);
             try
             {
-                Host host = new Host();
+                var host = new PluginCore.PluginCore.Helpers.ScriptHost();
                 String[] args = file.Split(new Char[1]{';'});
                 if (args[0] == "Internal") host.ExecuteScriptInternal(args[1], false);
                 else if (args[0] == "Development") host.ExecuteScriptInternal(args[1], true);
@@ -3892,38 +3892,5 @@ namespace FlashDevelop
         #endregion
 
     }
-
-    #region Script Host
-
-    public class Host : MarshalByRefObject
-    {
-        /// <summary>
-        /// Executes the script in a seperate appdomain and then unloads it
-        /// NOTE: This is more suitable for one pass processes
-        /// </summary>
-        public void ExecuteScriptExternal(String script)
-        {
-            if (!File.Exists(script)) throw new FileNotFoundException();
-            using (AsmHelper helper = new AsmHelper(CSScript.Compile(script, null, true), null, true))
-            {
-                helper.Invoke("*.Execute");
-            }
-        }
-
-        /// <summary>
-        /// Executes the script and adds it to the current app domain
-        /// NOTE: This locks the assembly script file
-        /// </summary>
-        public void ExecuteScriptInternal(String script, Boolean random)
-        {
-            if (!File.Exists(script)) throw new FileNotFoundException();
-            String file = random ? Path.GetTempFileName() : null;
-            AsmHelper helper = new AsmHelper(CSScript.Load(script, file, false, null));
-            helper.Invoke("*.Execute");
-        }
-
-    }
-
-    #endregion
 
 }

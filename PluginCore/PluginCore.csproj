@@ -104,6 +104,11 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Scripting, Version=2.7.0.0, Culture=neutral, PublicKeyToken=70fcc3d18c749033, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FlashDevelop\Bin\Debug\Scripting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -315,6 +320,7 @@
     <Compile Include="PluginCore\Helpers\JvmConfigHelper.cs" />
     <Compile Include="PluginCore\Helpers\ProcessHelper.cs" />
     <Compile Include="PluginCore\Helpers\ResourceHelper.cs" />
+    <Compile Include="PluginCore\Helpers\ScriptHost.cs" />
     <Compile Include="PluginCore\Helpers\SnippetHelper.cs" />
     <Compile Include="PluginCore\Helpers\DrawHelper.cs" />
     <Compile Include="PluginCore\DataClasses.cs" />
